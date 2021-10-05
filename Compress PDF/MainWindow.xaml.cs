@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using Path = System.IO.Path;
 
 namespace Compress_PDF
 {
@@ -25,16 +27,27 @@ namespace Compress_PDF
             InitializeComponent();
         }
 
+       
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-             string variableBin = "Path";
-             string valueBin = ";C:\\Program Files\\gs\\bin;C:\\Program Files\\gs\\lib";
+        {       
+            string DST = "C:\\Program Files\\gs\\";
+            string SRC = "C:\\Users\\Yura\\source\\repos\\Compress PDF\\Compress PDF\\bin\\Release\\gs\\";
 
-             string pach = Environment.GetEnvironmentVariable("Path");
-             string addPach = pach + valueBin;
+            DirectoryInfo srcDirectory = new DirectoryInfo(SRC);
+            DirectoryInfo dstDirectory = new DirectoryInfo(DST);
 
-             Environment.SetEnvironmentVariable(variableBin, addPach, EnvironmentVariableTarget.Machine);
+            if (!dstDirectory.Exists)
+            {
+                dstDirectory.Create();
+            }
+            if(dstDirectory.Exists)
+            {
+                label1.Content = "Папка с установленной программой в C:\\Program Files уже существует! ";
+                return;
+            }
+
+            Install install = new Install();
+            install.CopyDir(srcDirectory.ToString(), dstDirectory.ToString());
 
 
         }
