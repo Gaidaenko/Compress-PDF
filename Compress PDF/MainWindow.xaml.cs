@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO;
 using Path = System.IO.Path;
+using Microsoft.Win32;
 
 namespace Compress_PDF
 {
@@ -27,11 +29,12 @@ namespace Compress_PDF
             InitializeComponent();
         }
 
+        public static string filePDF;
        
         private void Button_Click(object sender, RoutedEventArgs e)
         {       
             string DST = "C:\\Program Files\\gs\\";
-            string SRC = "C:\\Users\\Yura\\source\\repos\\Compress PDF\\Compress PDF\\bin\\Release\\gs\\";
+            string SRC = @".\gs\";
 
             DirectoryInfo srcDirectory = new DirectoryInfo(SRC);
             DirectoryInfo dstDirectory = new DirectoryInfo(DST);
@@ -48,8 +51,27 @@ namespace Compress_PDF
 
             Install install = new Install();
             install.CopyDir(srcDirectory.ToString(), dstDirectory.ToString());
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+            OpenFileDialog openFilePDF = new OpenFileDialog();
+            openFilePDF.Filter = "Формат pdf(*.pdf)|*.pdf";
+            openFilePDF.Title = "Выберете файл";
+
+            if (openFilePDF.ShowDialog() == true)
+            {
+                filePDF = openFilePDF.FileName;
+            }
 
         }
-    }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+           
+
+        }
+    } 
 }
