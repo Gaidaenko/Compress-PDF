@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,10 +11,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Path = System.IO.Path;
 using Microsoft.Win32;
+using iTextSharp.text.pdf;
+using Grpc.Core;
 
 namespace Compress_PDF
 {
@@ -30,7 +28,7 @@ namespace Compress_PDF
         }
 
         public static string filePDF;
-       
+        public static string saveFile;
         private void Button_Click(object sender, RoutedEventArgs e)
         {       
             string DST = "C:\\Program Files\\gs\\";
@@ -55,23 +53,45 @@ namespace Compress_PDF
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
             OpenFileDialog openFilePDF = new OpenFileDialog();
             openFilePDF.Filter = "Формат pdf(*.pdf)|*.pdf";
             openFilePDF.Title = "Выберете файл";
 
-            if (openFilePDF.ShowDialog() == true)
+            if (openFilePDF.ShowDialog() != null)
             {
                 filePDF = openFilePDF.FileName;
-            }
-
+            }           
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
+        {          
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "pdf files (*.pdf)|*.pdf";
+
+            if (saveFileDialog.ShowDialog() != null)
+            {               
+                saveFile = saveFileDialog.FileName;
+            }
+        }
+        private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            string command = @"ps2pdf -dPDFSETTINGS#/screen " + filePDF + " " + saveFile;
 
-           
 
+
+            var proc = new ProcessStartInfo();
+            {
+                proc.UseShellExecute = true;
+                proc.WorkingDirectory = @"C:\Windows\System32";
+                proc.FileName = @"C:\Windows\System32\cmd.exe";
+                proc.Arguments = "/C " + command;
+                proc.WindowStyle = ProcessWindowStyle.Hidden;
+            };
+
+            Process.Start(proc); 
+
+          //  filePDF = null;
+          //  saveFile = null;
         }
     } 
 }
