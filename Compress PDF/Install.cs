@@ -45,26 +45,15 @@ namespace Compress_PDF
                 string addPach = pach + valueBin;
 
                 Environment.SetEnvironmentVariable(variableBin, addPach, EnvironmentVariableTarget.Machine);
-
             }
             catch (Exception e)
             {
                 MessageBox.Show("Не удается установить глобальные переменные");
             }
-    
-        }
-        void CheckInstall()
-        {
 
-            if (File.Exists(@"C:\\Program Files\\gs\\"));
-            {
-                MessageBox.Show("Программа установлена. Перезагрузите компьютер!");
-                return;
-            }
-            if (!File.Exists(@"C:\\Program Files\\gs\\"));
-            {
-                MessageBox.Show("Не удалось установить программу!");
-            }
+            Thread.Sleep(1000);
+            MessageBox.Show(@"Программа установлена! Перезагрузите компьютер чтоб применились изменения!");
+            return;
         }
     }
 }

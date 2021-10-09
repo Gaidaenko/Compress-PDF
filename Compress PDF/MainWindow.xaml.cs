@@ -26,14 +26,14 @@ namespace Compress_PDF
             InitializeComponent();
         }
 
-        public static string filePDF;
+        public string filePDF;
         public static string saveFile;
+        public static string DST = "C:\\Program Files\\gs\\";
+        public static string SRC = @".\gs\";
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {       
-            string DST = "C:\\Program Files\\gs\\";
-            string SRC = @".\gs\";
-
+            
             DirectoryInfo srcDirectory = new DirectoryInfo(SRC);
             DirectoryInfo dstDirectory = new DirectoryInfo(DST);
 
@@ -43,16 +43,16 @@ namespace Compress_PDF
             }
             if(dstDirectory.Exists)
             {
-                label1.Content = "Программа уже устпновлена! ";
-                return;
+               MessageBox.Show("Программа уже устпновлена!");
+               return;
             }
 
             Install install = new Install();          
-            
+
+            install.CopyDir(srcDirectory.ToString(), dstDirectory.ToString());
+
             Thread thread = new Thread(install.SetVariable);
             thread.Start();
-            
-            install.CopyDir(srcDirectory.ToString(), dstDirectory.ToString());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -78,8 +78,7 @@ namespace Compress_PDF
             }
         }
         private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-
+        {           
             string command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + filePDF + "\"" + " " + saveFile;
 
             var proc = new ProcessStartInfo();
@@ -106,6 +105,11 @@ namespace Compress_PDF
 
             filePDF = null;
             saveFile = null;
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            Uninstall.uninstall();
         }
     } 
 }
