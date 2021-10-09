@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using System.IO;
 using Path = System.IO.Path;
 using System.Windows;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Compress_PDF
 {
     public class Install
     {
        public void CopyDir(string copyFromDir, string copyToDir)
-        {
+       {
             try
             {
                 Directory.CreateDirectory(copyToDir);
@@ -30,11 +32,9 @@ namespace Compress_PDF
             {
                 MessageBox.Show("Не удается скопировать файлы в папку с установкой программы!");
             }
+       }
 
-            SetVariable();
-        }
-
-        void SetVariable()
+        public void SetVariable()
         {
             try
             {
@@ -50,7 +50,21 @@ namespace Compress_PDF
             catch (Exception e)
             {
                 MessageBox.Show("Не удается установить глобальные переменные");
-            }  
+            }
+    
+        }
+        void CheckInstall()
+        {
+
+            if (File.Exists(@"C:\\Program Files\\gs\\"));
+            {
+                MessageBox.Show("Программа установлена. Перезагрузите компьютер!");
+                return;
+            }
+            if (!File.Exists(@"C:\\Program Files\\gs\\"));
+            {
+                MessageBox.Show("Не удалось установить программу!");
+            }
         }
     }
 }

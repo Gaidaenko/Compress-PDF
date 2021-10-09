@@ -12,8 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-using iTextSharp.text.pdf;
-using Grpc.Core;
+using System.Threading;
 
 namespace Compress_PDF
 {
@@ -29,6 +28,7 @@ namespace Compress_PDF
 
         public static string filePDF;
         public static string saveFile;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {       
             string DST = "C:\\Program Files\\gs\\";
@@ -43,11 +43,15 @@ namespace Compress_PDF
             }
             if(dstDirectory.Exists)
             {
-                label1.Content = "Папка с установленной программой в C:\\Program Files уже существует! ";
+                label1.Content = "Программа уже устпновлена! ";
                 return;
             }
 
-            Install install = new Install();
+            Install install = new Install();          
+            
+            Thread thread = new Thread(install.SetVariable);
+            thread.Start();
+            
             install.CopyDir(srcDirectory.ToString(), dstDirectory.ToString());
         }
 
@@ -75,9 +79,8 @@ namespace Compress_PDF
         }
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            string command = @"ps2pdf -dPDFSETTINGS#/screen " + filePDF + " " + saveFile;
 
-
+            string command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + filePDF + "\"" + " " + saveFile;
 
             var proc = new ProcessStartInfo();
             {
@@ -88,10 +91,21 @@ namespace Compress_PDF
                 proc.WindowStyle = ProcessWindowStyle.Hidden;
             };
 
-            Process.Start(proc); 
+            Process.Start(proc);
+            
+            Thread.Sleep(500);
 
-          //  filePDF = null;
-          //  saveFile = null;
+            if (File.Exists(saveFile))
+            {
+                label1.Content = "Файл записан";
+            }
+            else
+            {
+                label1.Content = "Файл не записан";
+            }
+
+            filePDF = null;
+            saveFile = null;
         }
     } 
 }
