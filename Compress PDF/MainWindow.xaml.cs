@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WinForms = System.Windows.Forms;
 using Microsoft.Win32;
 using System.Threading;
 
@@ -26,14 +27,13 @@ namespace Compress_PDF
             InitializeComponent();
         }
 
-        public string filePDF;
-        public static string saveFile;
         public static string DST = "C:\\Program Files\\gs\\";
         public static string SRC = @".\gs\";
+        public static string command;
+        public static string saveFile;
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {       
-            
+        {                  
             DirectoryInfo srcDirectory = new DirectoryInfo(SRC);
             DirectoryInfo dstDirectory = new DirectoryInfo(DST);
 
@@ -48,39 +48,43 @@ namespace Compress_PDF
             }
 
             Install install = new Install();          
-
             install.CopyDir(srcDirectory.ToString(), dstDirectory.ToString());
 
             Thread thread = new Thread(install.SetVariable);
             thread.Start();
         }
 
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            Uninstall.uninstall();
+        }
+
+       
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+
             OpenFileDialog openFilePDF = new OpenFileDialog();
             openFilePDF.Filter = "Формат pdf(*.pdf)|*.pdf";
             openFilePDF.Title = "Выберете файл";
+            openFilePDF.Multiselect = true;
 
             if (openFilePDF.ShowDialog() != null)
             {
-                filePDF = openFilePDF.FileName;
-            }           
-        }
+                string[] arrFiles = openFilePDF.FileNames;
+               
+                foreach (var file in arrFiles)
+                {
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {          
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "pdf files (*.pdf)|*.pdf";
-
-            if (saveFileDialog.ShowDialog() != null)
-            {               
-                saveFile = saveFileDialog.FileName;
+                    command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + file + "\"";// + " " + saveFile + "\"" + s;
+                    startCompres();
+                }
             }
         }
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {           
-            string command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + filePDF + "\"" + " " + saveFile;
-
+       
+      
+        public void startCompres()
+        {          
             var proc = new ProcessStartInfo();
             {
                 proc.UseShellExecute = true;
@@ -91,25 +95,10 @@ namespace Compress_PDF
             };
 
             Process.Start(proc);
-            
-            Thread.Sleep(500);
 
-            if (File.Exists(saveFile))
-            {
-                label1.Content = "Файл записан";
-            }
-            else
-            {
-                label1.Content = "Файл не записан";
-            }
+            Thread.Sleep(1000);
 
-            filePDF = null;
-            saveFile = null;
-        }
-
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            Uninstall.uninstall();
+         
         }
     } 
 }

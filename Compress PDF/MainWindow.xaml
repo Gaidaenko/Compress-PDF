@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Compress_PDF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="350" Width="400">
     <Grid x:Name="label2" RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TransformGroup>
@@ -18,13 +18,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Установить конвертер" HorizontalAlignment="Left" Margin="34,38,0,0" VerticalAlignment="Top" Width="131" Click="Button_Click" Height="39" Grid.ColumnSpan="2"/>
-        <Button Content="Выберете файл" HorizontalAlignment="Left" Margin="34,122,0,0" VerticalAlignment="Top" Width="105" Height="60" Click="Button_Click_1" Grid.ColumnSpan="2"/>
-        <Button Content="Сохранить файл" HorizontalAlignment="Left" Margin="34,202,0,0" VerticalAlignment="Top" Width="105" Height="59" Click="Button_Click_2" Grid.ColumnSpan="2"/>
-        <Button Content="Сжать" HorizontalAlignment="Left" Margin="586,38,0,0" VerticalAlignment="Top" Width="136" Click="Button_Click_3" Height="39" Grid.ColumnSpan="2"/>
-        <Label x:Name="label1" Grid.ColumnSpan="2" Content="label1" HorizontalAlignment="Left" Margin="250,122,0,0" VerticalAlignment="Top"/>
-        <Button Grid.ColumnSpan="2" Content="Удалить конвертер" HorizontalAlignment="Left" Margin="287,38,0,0" VerticalAlignment="Top" Width="137" Height="39" Click="Button_Click_4"/>
+        <Button Content="Установить конвертер" HorizontalAlignment="Left" Margin="204,19,0,0" VerticalAlignment="Top" Width="164" Click="Button_Click" Height="53" Grid.ColumnSpan="2"/>
+        <Button Content="Выберете файл(ы)" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top" Width="161" Height="108" Click="Button_Click_1" Grid.ColumnSpan="2"/>
+        <Label x:Name="label1" Grid.ColumnSpan="2" Content="Статус" HorizontalAlignment="Left" Margin="172,211,0,0" VerticalAlignment="Top" Height="26" Width="45"/>
+        <Button Grid.ColumnSpan="2" Content="Удалить конвертер" HorizontalAlignment="Left" Margin="204,77,0,0" VerticalAlignment="Top" Width="164" Height="50" Click="Button_Click_4"/>
 
     </Grid>
 </Window>
