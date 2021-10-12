@@ -30,7 +30,7 @@ namespace Compress_PDF
         public static string DST = "C:\\Program Files\\gs\\";
         public static string SRC = @".\gs\";
         public static string command;
-        public static string saveFile;
+        public static string ifExist;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {                  
@@ -57,13 +57,10 @@ namespace Compress_PDF
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             Uninstall.uninstall();
-        }
-
-       
+        }      
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
             OpenFileDialog openFilePDF = new OpenFileDialog();
             openFilePDF.Filter = "Формат pdf(*.pdf)|*.pdf";
             openFilePDF.Title = "Выберете файл";
@@ -75,30 +72,65 @@ namespace Compress_PDF
                
                 foreach (var file in arrFiles)
                 {
-
-                    command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + file + "\"";// + " " + saveFile + "\"" + s;
+                    command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + file + "\"";
+                   
+                    ifExist = file;
                     startCompres();
                 }
             }
         }
-       
-      
-        public void startCompres()
-        {          
-            var proc = new ProcessStartInfo();
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFilePDF = new OpenFileDialog();
+            openFilePDF.Filter = "Формат pdf(*.pdf)|*.pdf";
+            openFilePDF.Title = "Выберете файл";
+            openFilePDF.Multiselect = true;
+
+            if (openFilePDF.ShowDialog() != null)
             {
-                proc.UseShellExecute = true;
-                proc.WorkingDirectory = @"C:\Windows\System32";
-                proc.FileName = @"C:\Windows\System32\cmd.exe";
-                proc.Arguments = "/C " + command;
-                proc.WindowStyle = ProcessWindowStyle.Hidden;
-            };
+                string[] arrFiles = openFilePDF.FileNames;
 
-            Process.Start(proc);
+                foreach (var file in arrFiles)
+                {
+                    command = @"ps2pdf -dPDFSETTINGS#/ebook " + "\"" + file + "\"";
 
-            Thread.Sleep(1000);
+                    ifExist = file;
+                    startCompres();
+                }
+            }
 
-         
         }
+
+        public void startCompres()
+        {
+            try
+            {
+                var proc = new ProcessStartInfo();
+                {
+                    proc.UseShellExecute = true;
+                    proc.WorkingDirectory = @"C:\Windows\System32";
+                    proc.FileName = @"C:\Windows\System32\cmd.exe";
+                    proc.Arguments = "/C " + command;
+                    proc.WindowStyle = ProcessWindowStyle.Hidden;
+                }
+
+                Process.Start(proc);
+
+                Thread.Sleep(500);
+
+                label1.Content = "Новые файлы расположены в том же месте где и источник," +
+                   "\nc дополнительным расширением pdf в конце файла.";
+
+            }
+            catch
+            {
+
+                label1.Content = "Не удлось создать файл.Проверьте права на папку.";
+
+            }           
+        }
+
+       
     } 
 }
