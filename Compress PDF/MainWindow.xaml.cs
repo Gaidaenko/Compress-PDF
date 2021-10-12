@@ -66,6 +66,8 @@ namespace Compress_PDF
             openFilePDF.Title = "Выберете файл";
             openFilePDF.Multiselect = true;
 
+            label1.Content = "Идёт процесс сжатия.";
+
             if (openFilePDF.ShowDialog() != null)
             {
                 string[] arrFiles = openFilePDF.FileNames;
@@ -73,7 +75,7 @@ namespace Compress_PDF
                 foreach (var file in arrFiles)
                 {
                     command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + file + "\"";
-                   
+
                     ifExist = file;
                     startCompres();
                 }
@@ -87,6 +89,8 @@ namespace Compress_PDF
             openFilePDF.Title = "Выберете файл";
             openFilePDF.Multiselect = true;
 
+            label1.Content = "Идёт процесс сжатия.";
+
             if (openFilePDF.ShowDialog() != null)
             {
                 string[] arrFiles = openFilePDF.FileNames;
@@ -94,12 +98,11 @@ namespace Compress_PDF
                 foreach (var file in arrFiles)
                 {
                     command = @"ps2pdf -dPDFSETTINGS#/ebook " + "\"" + file + "\"";
-
+                  
                     ifExist = file;
                     startCompres();
                 }
             }
-
         }
 
         public void startCompres()
@@ -116,7 +119,6 @@ namespace Compress_PDF
                 }
 
                 Process.Start(proc);
-
                 Thread.Sleep(500);
 
                 label1.Content = "Новые файлы расположены в том же месте где и источник," +
@@ -125,12 +127,8 @@ namespace Compress_PDF
             }
             catch
             {
-
                 label1.Content = "Не удлось создать файл.Проверьте права на папку.";
-
             }           
         }
-
-       
     } 
 }

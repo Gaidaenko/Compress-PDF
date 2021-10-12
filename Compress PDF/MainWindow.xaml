@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Compress_PDF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="349.049" Width="454.229">
-    <Grid x:Name="label2" RenderTransformOrigin="0.5,0.5" Margin="0,0,0,-1">
+        Title="Compress PDF" Height="284.356" Width="450.424">
+    <Grid x:Name="label2" RenderTransformOrigin="0.5,0.5" Margin="0,0,1,37">
         <Grid.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
@@ -21,10 +21,10 @@
             <ColumnDefinition Width="27*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Установить конвертер" HorizontalAlignment="Left" Margin="251,10,0,0" VerticalAlignment="Top" Width="164" Click="Button_Click" Height="53" Grid.ColumnSpan="3"/>
+        <Button Content="Установить программу" HorizontalAlignment="Left" Margin="251,10,0,0" VerticalAlignment="Top" Width="164" Click="Button_Click" Height="53" Grid.ColumnSpan="3" Background="#FFC2FFB8"/>
         <Button Content="Выберете файл(ы) для сжатия 72 dpi" HorizontalAlignment="Left" Margin="7,10,0,0" VerticalAlignment="Top" Width="228" Height="53" Click="Button_Click_1" Grid.ColumnSpan="2"/>
-        <Label x:Name="label1" Grid.ColumnSpan="3" Content="Статус" HorizontalAlignment="Left" Margin="10,211,0,0" VerticalAlignment="Top" Height="90" Width="358"/>
-        <Button Grid.ColumnSpan="3" Content="Удалить конвертер" HorizontalAlignment="Left" Margin="251,68,0,0" VerticalAlignment="Top" Width="164" Height="50" Click="Button_Click_4"/>
+        <Label x:Name="label1" Grid.ColumnSpan="3" Content="Статус" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Height="90" Width="358"/>
+        <Button Grid.ColumnSpan="3" Content="Удалить программу" HorizontalAlignment="Left" Margin="251,68,0,0" VerticalAlignment="Top" Width="164" Height="50" Click="Button_Click_4" Background="#FFFFC3CE"/>
         <Button Grid.ColumnSpan="2" Content="Выберете файл(ы) для сжатия 150 dpi" HorizontalAlignment="Left" Margin="7,68,0,0" VerticalAlignment="Top" Width="228" Height="50" Click="Button_Click_2"/>
 
     </Grid>
