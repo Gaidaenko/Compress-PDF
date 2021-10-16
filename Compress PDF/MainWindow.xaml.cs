@@ -27,14 +27,13 @@ namespace Compress_PDF
             InitializeComponent();
         }
 
-        public static string DST = "C:\\Program Files\\gs\\";
-        public static string SRC = @".\gs\";
-        public static string command;
-        public static string ifExist;
+        public static string DST = "C:\\Program Files\\gs\\";                           
+        public static string SRC = @".\gs\";                                            
+        public static string command;                                                   
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {                  
-            DirectoryInfo srcDirectory = new DirectoryInfo(SRC);
+            DirectoryInfo srcDirectory = new DirectoryInfo(SRC);                         
             DirectoryInfo dstDirectory = new DirectoryInfo(DST);
 
             if (!dstDirectory.Exists)
@@ -76,7 +75,6 @@ namespace Compress_PDF
                 {
                     command = @"ps2pdf -dPDFSETTINGS#/screen " + "\"" + file + "\"";
 
-                    ifExist = file;
                     startCompres();
                 }
             }
@@ -98,13 +96,11 @@ namespace Compress_PDF
                 foreach (var file in arrFiles)
                 {
                     command = @"ps2pdf -dPDFSETTINGS#/ebook " + "\"" + file + "\"";
-                  
-                    ifExist = file;
+
                     startCompres();
                 }
             }
         }
-
         public void startCompres()
         {
             try
@@ -123,12 +119,11 @@ namespace Compress_PDF
 
                 label1.Content = "Новые файлы расположены в том же месте где и источник," +
                    "\nc дополнительным расширением pdf в конце файла.";
-
             }
             catch
             {
                 label1.Content = "Не удлось создать файл.Проверьте права на папку.";
-            }           
+            }
         }
     } 
 }
